@@ -64,11 +64,29 @@
                                     <tr>
                                         <!-- Task Name -->
                                         <td class="table-text">
-                                            <div>{{ $task->name }}</div>
+                                            <div>
+                                                {{ $task->name }}
+                                            </div>
                                         </td>
+                                        <td style="display: flex;">
+                                            <form action="{{ url('task/done/'.$task->id) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                {{ method_field('POST') }}
 
+                                                @if ($task->done==0)
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fa fa-times"></i> Not Done
+                                                    </button>
+                                                @else
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fa fa-check"></i>Done
+                                                    </button>
+                                                @endif  
+                                            </form>
+                                        
                                         <!-- Delete Button -->
-                                        <td>
+                                        
+                                            
                                             <form action="{{ url('task/'.$task->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 {{ method_field('DELETE') }}
@@ -76,6 +94,7 @@
                                                 <button type="submit" class="btn btn-danger">
                                                     <i class="fa fa-trash"></i> Delete
                                                 </button>
+                                                
                                             </form>
                                         </td>
                                     </tr>

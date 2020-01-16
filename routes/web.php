@@ -41,8 +41,20 @@ Route::post('/task', function (Request $request) {
     return redirect('/');
 });
 
+Route::post('/task/done/{task}', function (Task $task) {
+    if ($task->done ==0) {
+        $task->done = 1;
+        $task->save();
+    }elseif ($task->done ==1) {
+        $task->done = 0;
+        $task->save();
+    }
+    return redirect('/');
+});
+
 Route::delete('/task/{task}', function (Task $task) {
     $task->delete();
 
     return redirect('/');
 });
+
